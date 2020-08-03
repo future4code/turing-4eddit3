@@ -1,0 +1,74 @@
+import React, {useEffect} from 'react'
+import Header from '../Header/Header'
+import {LoginContainer, StyledForm, StyledButton} from './Style'
+import useForm from '../../Hooks/useForm'
+import axios from 'axios'
+import { useHistory } from "react-router-dom";
+import {TextField} from '@material-ui/core'
+
+function LoginPage () {
+    const {form, onChange, resetForm} = useForm({email: "", password: ""})
+    const history = useHistory();
+    const handleInputChange = event => {
+        const {name, value} = event.target
+        onChange(name, value)
+    }
+
+    useEffect(() => {
+        const token = window.localStorage.getItem("token")
+        if(token !== null){
+            history.push("/feed")
+        }
+    },[history])
+
+    const handleLogin = (e) => {
+        e.preventDefault()
+        const body = {
+            email: form.email,
+	        password: form.password
+        }
+        axios.post("https://us-central1-labenu-apis.cloudfunctions.net/labEddit/login", body)
+        .then((response) => {
+            window.localStorage.setItem("token", response.data.token)
+            alert("Login efetuado com sucesso")
+            history.push("/feed")
+        })
+        .catch(() => {
+            alert("Email ou senha inválidos!")
+            resetForm()
+        })
+    }
+    return(        
+        <div>
+            <Header />
+            <LoginContainer>
+                <StyledForm onSubmit={handleLogin}>
+                    <h2>Login</h2>
+                    <TextField 
+                    label="Email"
+                    variant="outlined"
+                    value={form.email}
+                    onChange={handleInputChange}
+                    name="email" 
+                    placeholder="email"
+                    type="email"
+                    required
+                    />
+                    <TextField 
+                    label="Password"
+                    variant="outlined"
+                    value={form.password}
+                    onChange={handleInputChange}
+                    name="password" 
+                    placeholder="senha"
+                    type="password"
+                    required
+                    />
+                    <StyledButton variant="contained" color="primary">Fazer login</StyledButton>
+                </StyledForm>
+            </LoginContainer>
+        </div>
+    )
+}
+
+export default LoginPage
