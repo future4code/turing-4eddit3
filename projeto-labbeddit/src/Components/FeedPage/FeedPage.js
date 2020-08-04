@@ -5,8 +5,8 @@ import axios from 'axios';
 import {StyledPaper, StyledTextField, ContainerInput, SyledForm, TituloUsuario, ContainerPost, PostFooter, TextContainer, LikesContainer, LikesButton} from './Style'
 import { Button } from '@material-ui/core';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
-import useForm from '../../Hooks/useForm'
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
+import useForm from '../../Hooks/useForm'
 
 function FeedPage () {
     const history = useHistory();
@@ -48,26 +48,51 @@ function FeedPage () {
         })
     }
 
-    const votePostUp = (postId) => {
-        const token = window.localStorage.getItem("token")
-        const body = {
-            direction: 1
+    const votePostUp = (post) => {
+        const token = window.localStorage.getItem("token")  
+        if(post.userVoteDirection === 1){
+            const body = {
+                direction: 0
+            }
+            axios.put(`https://us-central1-labenu-apis.cloudfunctions.net/labEddit/posts/${post.id}/vote`, body, {headers: {Authorization: token}})
+            .then(() => {
+                getPosts()
+
+            })
+        } else {
+            const body = {
+                direction: 1
+            }
+            axios.put(`https://us-central1-labenu-apis.cloudfunctions.net/labEddit/posts/${post.id}/vote`, body, {headers: {Authorization: token}})
+            .then(() => {
+                getPosts()
+            })
         }
-        axios.put(`https://us-central1-labenu-apis.cloudfunctions.net/labEddit/posts/${postId}/vote`, body, {headers: {Authorization: token}})
-        .then(() => {
-            getPosts()
-        })
     }
 
-    const votePostDown = (postId) => {
+    const votePostDown = (post) => {
         const token = window.localStorage.getItem("token")
-        const body = {
-            direction: -1
+        if(post.userVoteDirection === -1){
+            const body = {
+                direction: 0
+            }
+            axios.put(`https://us-central1-labenu-apis.cloudfunctions.net/labEddit/posts/${post.id}/vote`, body, {headers: {Authorization: token}})
+            .then(() => {
+                getPosts()
+            })
+        } else {
+            const body = {
+                direction: -1
+            }
+            axios.put(`https://us-central1-labenu-apis.cloudfunctions.net/labEddit/posts/${post.id}/vote`, body, {headers: {Authorization: token}})
+            .then(() => {
+                getPosts()
+            })
         }
-        axios.put(`https://us-central1-labenu-apis.cloudfunctions.net/labEddit/posts/${postId}/vote`, body, {headers: {Authorization: token}})
-        .then(() => {
-            getPosts()
-        })
+    }
+
+    const goToPostDetailPage = (postId) => {
+        history.push(`/post/${postId}`)
     }
 
     return(
@@ -101,14 +126,17 @@ function FeedPage () {
                 return(
                 <StyledPaper key={post.id}>
                     <TituloUsuario>Usuário: {post.username}</TituloUsuario>
-                    <ContainerPost>{post.text}</ContainerPost>
+                    <ContainerPost>
+                        Título: {post.title}<br></br>
+                        {post.text}
+                    </ContainerPost>
                     <PostFooter>
                         <LikesContainer>
-                            <LikesButton onClick={() => votePostUp(post.id)}><ArrowUpwardIcon/></LikesButton>
+                            <LikesButton onClick={() => votePostUp(post)}>{post.userVoteDirection === 1 ? <ArrowUpwardIcon color="primary"/> : <ArrowUpwardIcon />}</LikesButton>
                             <TextContainer>{post.votesCount}</TextContainer>
-                            <LikesButton onClick={() => votePostDown(post.id)}><ArrowDownwardIcon/></LikesButton>
+                            <LikesButton onClick={() => votePostDown(post)}>{post.userVoteDirection === -1 ? <ArrowDownwardIcon color="secondary"/> : <ArrowDownwardIcon />}</LikesButton>
                         </LikesContainer>
-                        <TextContainer>{post.commentsCount} comentários</TextContainer>
+                        <TextContainer onClick={() => goToPostDetailPage(post.id)}>{post.commentsCount} comentários</TextContainer>
                     </PostFooter>
                 </StyledPaper>
                 )
