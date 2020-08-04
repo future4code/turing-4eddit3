@@ -59,7 +59,7 @@ function LoginPage () {
                     required
                     />
                     <TextField 
-                    label="Password"
+                    label="Senha"
                     variant="outlined"
                     value={form.password}
                     onChange={handleInputChange}
@@ -69,7 +69,7 @@ function LoginPage () {
                     required
                     />
                     <StyledButton type="submit">Fazer login</StyledButton>
-                    <StyledButton onClick={goToSignUpPage}>Cadastre-se</StyledButton>
+                    <StyledButton onClick={goToSignUpPage}>Cadastrar-se</StyledButton>
                 </StyledForm>
             </LoginContainer>
         </div>
