@@ -10,7 +10,7 @@ function HomePage () {
         if(token !== null){
             history.push("/feed")
         }
-    }, [])
+    }, [history])
     return(
         <ContainerHome>
             <Header />

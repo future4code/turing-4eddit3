@@ -3,7 +3,6 @@ import { useHistory } from "react-router-dom";
 import Header from '../Header/Header';
 import axios from 'axios';
 import {StyledPaper, StyledTextField, ContainerForm, SyledForm, TituloUsuario, ContainerPost, PostFooter, TextContainer, LikesContainer, LikesButton, StyledButton, ContainerInput} from './Style'
-import { Button } from '@material-ui/core';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import useForm from '../../Hooks/useForm'
