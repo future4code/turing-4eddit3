@@ -1,5 +1,5 @@
 import React from 'react'
-import {ContainerHeader, ButtonContainer, TituloPrincipal, TituloCointainer} from './Style'
+import {ContainerHeader, ButtonContainer, TituloPrincipal, TituloCointainer, HeaderButton} from './Style'
 import { useHistory } from "react-router-dom";
 
 
@@ -14,18 +14,36 @@ function Header () {
     const goToSignUpPage = () => {
         history.push("/cadastro")
     }
+    const handleLogout = () => {
+        window.localStorage.clear()
+        history.push("/")
+    }
+    const renderButton = () => {
+        const token = window.localStorage.getItem("token")
+        if(token === null){
+            return(
+            <ButtonContainer>
+                <HeaderButton onClick={goToLoginPage}>Login</HeaderButton>
+                <HeaderButton onClick={goToSignUpPage}>Cadastrar</HeaderButton>
+            </ButtonContainer>
+            )
+        } else {
+            return(
+            <ButtonContainer>
+                <HeaderButton onClick={handleLogout}>Fazer Logout</HeaderButton>
+            </ButtonContainer>
+            )
+        }
+    }
     return(
         <ContainerHeader>
             <ButtonContainer>
-                <button onClick={goToHomePage}>Home</button>
+                <HeaderButton onClick={goToHomePage}>Home</HeaderButton>
             </ButtonContainer>
             <TituloCointainer>
                 <TituloPrincipal>LabEddit</TituloPrincipal>
             </TituloCointainer>
-            <ButtonContainer>
-                <button onClick={goToLoginPage}>Login</button>
-                <button onClick={goToSignUpPage}>Cadastrar</button>
-            </ButtonContainer>
+            {renderButton()}
         </ContainerHeader>
     )
 }

@@ -25,3 +25,13 @@ export const TituloPrincipal = styled.h1`
 export const TituloCointainer = styled.div`
     align-self: center;
 `
+
+export const HeaderButton = styled.button`
+    background-color: #000;
+    color: #FFF;
+    border: 1px solid #FFF;
+    border-radius: 5px;
+    padding: 10px;
+    outline: none;
+    cursor: pointer;
+`

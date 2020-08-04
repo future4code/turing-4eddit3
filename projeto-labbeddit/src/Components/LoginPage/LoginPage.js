@@ -38,6 +38,10 @@ function LoginPage () {
             resetForm()
         })
     }
+
+    const goToSignUpPage = () => {
+        history.push("/cadastro")
+    }
     return(        
         <div>
             <Header />
@@ -64,7 +68,8 @@ function LoginPage () {
                     type="password"
                     required
                     />
-                    <StyledButton variant="contained" color="primary">Fazer login</StyledButton>
+                    <StyledButton type="submit">Fazer login</StyledButton>
+                    <StyledButton onClick={goToSignUpPage}>Cadastre-se</StyledButton>
                 </StyledForm>
             </LoginContainer>
         </div>
