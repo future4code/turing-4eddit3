@@ -5,6 +5,7 @@ import LoginPage from './LoginPage/LoginPage';
 import Page404 from './Page404/Page404'
 import FeedPage from './FeedPage/FeedPage';
 import SignUpPage from './SignUpPage/SignUpPage';
+import PostDetailPage from './PostDetailPage/PostDetailPage';
 
 function Router () {
     return(
@@ -18,6 +19,9 @@ function Router () {
                 </Route>
                 <Route exact path="/cadastro">
                     <SignUpPage />
+                </Route>
+                <Route exact path ="/post/:postId">
+                    <PostDetailPage />
                 </Route>
                 <Route exact path="/">
                     <HomePage />
