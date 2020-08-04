@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import Paper from '@material-ui/core/Paper'
-import {TextField} from '@material-ui/core'
+import {TextField, Button} from '@material-ui/core'
 
 export const StyledPaper = styled(Paper)`
     width: 400px;
@@ -15,7 +15,7 @@ export const StyledTextField = styled(TextField)`
     width: 100%;
 `
 
-export const ContainerInput = styled.div`
+export const ContainerForm = styled.div`
     width: 500px;
     margin: 10px auto;
     text-align: center;
@@ -60,4 +60,18 @@ export const LikesButton = styled.button`
     border: none;
     background-color:#FFF;
     cursor: pointer;
+`
+
+export const StyledButton = styled(Button)`
+    height: 70px;
+    align-self: center;
+`
+
+export const ContainerInput = styled.div`
+    margin: 10px;
+    height: 160px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 `
