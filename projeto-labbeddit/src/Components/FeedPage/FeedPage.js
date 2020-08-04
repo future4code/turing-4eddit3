@@ -2,8 +2,7 @@ import React, {useEffect, useState} from 'react'
 import { useHistory } from "react-router-dom";
 import Header from '../Header/Header';
 import axios from 'axios';
-import {StyledPaper, StyledTextField, ContainerInput, SyledForm, TituloUsuario, ContainerPost, PostFooter, TextContainer, LikesContainer, LikesButton} from './Style'
-import { Button } from '@material-ui/core';
+import {StyledPaper, StyledTextField, ContainerForm, SyledForm, TituloUsuario, ContainerPost, PostFooter, TextContainer, LikesContainer, LikesButton, StyledButton, ContainerInput} from './Style'
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import useForm from '../../Hooks/useForm'
@@ -98,34 +97,36 @@ function FeedPage () {
     return(
         <div>
             <Header />
-            <ContainerInput>
+            <ContainerForm>
                 <SyledForm onSubmit={createPosts}>
-                    <StyledTextField 
-                    required
-                    variant="outlined"
-                    label="Título do Post"
-                    name="title"
-                    onChange={handleInputChange}
-                    value={form.title}
-                    />
-                    <StyledTextField 
-                    required
-                    multiline
-                    rows={3}
-                    variant="outlined"
-                    label="Texto do Post"
-                    name="text"
-                    onChange={handleInputChange}
-                    value={form.text}
-                    />
-                    <Button type="submit" variant="contained" color="primary">Postar</Button>
+                    <ContainerInput>
+                        <StyledTextField 
+                        required
+                        variant="outlined"
+                        label="Título do Post"
+                        name="title"
+                        onChange={handleInputChange}
+                        value={form.title}
+                        />
+                        <StyledTextField 
+                        required
+                        multiline
+                        rows={3}
+                        variant="outlined"
+                        label="Texto do Post"
+                        name="text"
+                        onChange={handleInputChange}
+                        value={form.text}
+                        />
+                    </ContainerInput>
+                    <StyledButton type="submit" variant="contained" color="primary">Postar</StyledButton>
                 </SyledForm>
-            </ContainerInput>
+            </ContainerForm>
             
             {posts.map((post) => {
                 return(
                 <StyledPaper key={post.id}>
-                    <TituloUsuario>Usuário: {post.username}</TituloUsuario>
+                    <TituloUsuario>{post.username}</TituloUsuario>
                     <ContainerPost>
                         Título: {post.title}<br></br>
                         {post.text}

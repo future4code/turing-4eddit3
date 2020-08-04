@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import Header from '../Header/Header'
 import { useHistory, useParams } from "react-router-dom";
 import axios from 'axios';
-import {StyledPaper, StyledTextField, ContainerInput, SyledForm, TituloUsuario, ContainerPost, PostFooter, TextContainer, LikesContainer, LikesButton} from './Style'
+import {StyledPaper, TituloUsuario, ContainerPost, PostFooter, TextContainer, LikesContainer, LikesButton} from './Style'
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 
@@ -11,24 +11,21 @@ function PostDetailPage () {
     const params = useParams();
     const [post, setPost] = useState({})
 
-    const getPostDetail = () => {
-        const token = window.localStorage.getItem("token")
-        axios.get(`https://us-central1-labenu-apis.cloudfunctions.net/labEddit/posts/${params.postId}`, {headers: {Authorization: token}})
-        .then((response) => {
-            setPost(response.data)
-        })
-        .catch((err) => {
-            console.log(err)
-        })
-    }
-
     useEffect(() => {
-        getPostDetail()
         const token = window.localStorage.getItem("token")
         if(token === null){
             history.push("/login")
         }
-    }, [])
+        const getPostDetail = () => {
+            const token = window.localStorage.getItem("token")
+            axios.get(`https://us-central1-labenu-apis.cloudfunctions.net/labEddit/posts/${params.postId}`, {headers: {Authorization: token}})
+            .then((response) => {
+                setPost(response.data)
+            })
+        }
+        getPostDetail()
+        
+    }, [history, params.postId])
 
     return(
         <div>
