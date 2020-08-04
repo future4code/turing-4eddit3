@@ -66,7 +66,7 @@ function SignUpPage () {
                     required
                     />
                     <TextField 
-                    label="Password"
+                    label="Senha"
                     variant="outlined"
                     value={form.password}
                     onChange={handleInputChange}
