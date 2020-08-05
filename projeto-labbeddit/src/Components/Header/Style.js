@@ -12,7 +12,6 @@ export const ContainerHeader = styled.div`
 export const ButtonContainer = styled.div`
     align-self: center;
     margin: 10px;
-    width: 150px;
     display: flex;
     justify-content: space-between;
 `
@@ -31,7 +30,8 @@ export const HeaderButton = styled.button`
     color: #FFF;
     border: 1px solid #FFF;
     border-radius: 5px;
-    padding: 10px;
+    padding: 5px;
     outline: none;
     cursor: pointer;
+    height: 40px;
 `

@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import { useHistory } from "react-router-dom";
 import Header from '../Header/Header';
 import axios from 'axios';
-import {StyledPaper, StyledTextField, ContainerForm, SyledForm, TituloUsuario, ContainerPost, PostFooter, TextContainer, LikesContainer, LikesButton, StyledButton, ContainerInput} from './Style'
+import {StyledPaper, StyledTextField, ContainerForm, SyledForm, TituloUsuario, ContainerPost, PostFooter, TextContainer, LikesContainer, LikesButton, StyledButton, ContainerInput, StyledSVG, Loading} from './Style'
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import useForm from '../../Hooks/useForm'
@@ -123,7 +123,7 @@ function FeedPage () {
                 </SyledForm>
             </ContainerForm>
             
-            {posts.map((post) => {
+            {posts.length === 0? <Loading><StyledSVG viewBox="25 25 50 50"><circle cx="50" cy="50" r="20"></circle></StyledSVG></Loading> : posts.map((post) => {
                 return(
                 <StyledPaper key={post.id}>
                     <TituloUsuario>{post.username}</TituloUsuario>

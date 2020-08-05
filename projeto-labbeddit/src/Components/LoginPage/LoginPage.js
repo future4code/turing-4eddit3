@@ -1,10 +1,12 @@
 import React, {useEffect} from 'react'
 import Header from '../Header/Header'
+import 'rsuite/dist/styles/rsuite-default.css';
 import {LoginContainer, StyledForm, StyledButton} from './Style'
 import useForm from '../../Hooks/useForm'
 import axios from 'axios'
 import { useHistory } from "react-router-dom";
 import {TextField} from '@material-ui/core'
+import { Alert } from 'rsuite';
 
 function LoginPage () {
     const {form, onChange, resetForm} = useForm({email: "", password: ""})
@@ -30,11 +32,11 @@ function LoginPage () {
         axios.post("https://us-central1-labenu-apis.cloudfunctions.net/labEddit/login", body)
         .then((response) => {
             window.localStorage.setItem("token", response.data.token)
-            alert("Login efetuado com sucesso")
+            Alert.success("Login feito com sucesso!", 3000)
             history.push("/feed")
         })
         .catch(() => {
-            alert("Email ou senha inválidos!")
+            Alert.error("Email ou senha inválidos!", 3000)
             resetForm()
         })
     }

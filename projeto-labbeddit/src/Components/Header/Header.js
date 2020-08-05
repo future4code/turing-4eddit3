@@ -11,9 +11,6 @@ function Header () {
     const goToLoginPage = () => {
         history.push("/login")
     }
-    const goToSignUpPage = () => {
-        history.push("/cadastro")
-    }
     const handleLogout = () => {
         window.localStorage.clear()
         history.push("/")
@@ -24,7 +21,6 @@ function Header () {
             return(
             <ButtonContainer>
                 <HeaderButton onClick={goToLoginPage}>Login</HeaderButton>
-                <HeaderButton onClick={goToSignUpPage}>Cadastrar</HeaderButton>
             </ButtonContainer>
             )
         } else {
