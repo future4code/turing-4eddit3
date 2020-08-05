@@ -61,3 +61,52 @@ export const LikesButton = styled.button`
     background-color:#FFF;
     cursor: pointer;
 `
+
+export const CommentContainer = styled.div`
+    width: 400px;
+    margin: 0 auto;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    height: 100px;
+    justify-content: space-between;
+`
+
+export const CommentPaper = styled(Paper)`
+    width: 400px;
+    margin: 10px auto;
+    text-align: center;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+`
+
+export const ContainerCommentText = styled.div`
+    flex: 1;
+    border-top: 1px solid lightgrey;
+    border-bottom: 1px solid lightgrey;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+`
+
+export const CommentsTitle = styled.h3`
+    text-align: center;
+    border: 1px solid black;
+    border-radius: 5px;
+    width: 400px;
+    margin: 0 auto;
+    padding: 10px;
+`
+
+export const CommentUserContainer = styled.h3`
+    margin: 0;
+    padding: 0;
+`
+
+export const CommentLikesContainer = styled.div`
+    display: flex;
+    width: 110px;
+    justify-content: space-between;
+    margin: 0 auto;
+`
