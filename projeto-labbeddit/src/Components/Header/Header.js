@@ -11,9 +11,6 @@ function Header () {
     const goToLoginPage = () => {
         history.push("/login")
     }
-    const goToSignUpPage = () => {
-        history.push("/cadastro")
-    }
     const handleLogout = () => {
         window.localStorage.clear()
         history.push("/")

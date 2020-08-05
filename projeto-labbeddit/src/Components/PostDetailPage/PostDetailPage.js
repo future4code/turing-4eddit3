@@ -22,7 +22,7 @@ function PostDetailPage () {
         onChange(name, value)
     }
 
-    const getPostDetail = () => {
+    const attPostDetail = () => {
         const token = window.localStorage.getItem("token")
         axios.get(`https://us-central1-labenu-apis.cloudfunctions.net/labEddit/posts/${params.postId}`, {headers: {Authorization: token}})
         .then((response) => {
@@ -36,9 +36,17 @@ function PostDetailPage () {
         if(token === null){
             history.push("/login")
         }
+        const getPostDetail = () => {
+            const token = window.localStorage.getItem("token")
+            axios.get(`https://us-central1-labenu-apis.cloudfunctions.net/labEddit/posts/${params.postId}`, {headers: {Authorization: token}})
+            .then((response) => {
+                setPost(response.data.post)
+                setComments(response.data.post.comments)
+            })
+        }
         getPostDetail()
         
-    },)
+    },[history, params.postId])
 
     const votePostUp = (post) => {
         const token = window.localStorage.getItem("token")  
@@ -48,7 +56,7 @@ function PostDetailPage () {
             }
             axios.put(`https://us-central1-labenu-apis.cloudfunctions.net/labEddit/posts/${params.postId}/vote`, body, {headers: {Authorization: token}})
             .then(() => {
-                getPostDetail()
+                attPostDetail()
             })
         } else {
             const body = {
@@ -56,7 +64,7 @@ function PostDetailPage () {
             }
             axios.put(`https://us-central1-labenu-apis.cloudfunctions.net/labEddit/posts/${params.postId}/vote`, body, {headers: {Authorization: token}})
             .then(() => {
-                getPostDetail()
+                attPostDetail()
             })
         }
     }
@@ -69,7 +77,7 @@ function PostDetailPage () {
             }
             axios.put(`https://us-central1-labenu-apis.cloudfunctions.net/labEddit/posts/${params.postId}/vote`, body, {headers: {Authorization: token}})
             .then(() => {
-                getPostDetail()
+                attPostDetail()
             })
         } else {
             const body = {
@@ -77,7 +85,7 @@ function PostDetailPage () {
             }
             axios.put(`https://us-central1-labenu-apis.cloudfunctions.net/labEddit/posts/${params.postId}/vote`, body, {headers: {Authorization: token}})
             .then(() => {
-                getPostDetail()
+                attPostDetail()
             })
         }
     }
@@ -90,7 +98,7 @@ function PostDetailPage () {
         }
         axios.post(`https://us-central1-labenu-apis.cloudfunctions.net/labEddit/posts/${params.postId}/comment`, body, {headers: {Authorization: token}})
         .then(() => {
-            getPostDetail()
+            attPostDetail()
             resetForm()
         })
     }
@@ -103,7 +111,7 @@ function PostDetailPage () {
             }
             axios.put(`https://us-central1-labenu-apis.cloudfunctions.net/labEddit/posts/${params.postId}/comment/${comment.id}/vote`, body, {headers: {Authorization: token}})
             .then(() => {
-                getPostDetail()
+                attPostDetail()
             })
         } else {
             const body = {
@@ -111,7 +119,7 @@ function PostDetailPage () {
             }
             axios.put(`https://us-central1-labenu-apis.cloudfunctions.net/labEddit/posts/${params.postId}/comment/${comment.id}/vote`, body, {headers: {Authorization: token}})
             .then(() => {
-                getPostDetail()
+                attPostDetail()
             })
         }
     }
@@ -124,7 +132,7 @@ function PostDetailPage () {
             }
             axios.put(`https://us-central1-labenu-apis.cloudfunctions.net/labEddit/posts/${params.postId}/comment/${comment.id}/vote`, body, {headers: {Authorization: token}})
             .then(() => {
-                getPostDetail()
+                attPostDetail()
             })
         } else {
             const body = {
@@ -132,7 +140,7 @@ function PostDetailPage () {
             }
             axios.put(`https://us-central1-labenu-apis.cloudfunctions.net/labEddit/posts/${params.postId}/comment/${comment.id}/vote`, body, {headers: {Authorization: token}})
             .then(() => {
-                getPostDetail()
+                attPostDetail()
             })
         }
     }
