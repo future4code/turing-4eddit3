@@ -3,7 +3,7 @@ import Paper from '@material-ui/core/Paper'
 import {TextField, Button} from '@material-ui/core'
 
 export const StyledPaper = styled(Paper)`
-    width: 400px;
+    width: 490px;
     height: 250px;
     margin: 10px auto;
     text-align: center;
@@ -39,7 +39,7 @@ export const PostFooter = styled.div`
     border-top: 1px solid grey;
     padding: 10px;
     display: flex;
-    height: 30px;
+    height: 45px;
     justify-content: space-between;
 `
 
@@ -60,6 +60,7 @@ export const LikesButton = styled.button`
     border: none;
     background-color:#FFF;
     cursor: pointer;
+    outline: none;
 `
 
 export const StyledButton = styled(Button)`
@@ -74,4 +75,46 @@ export const ContainerInput = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+`
+
+export const StyledSVG = styled.svg`
+    width: 3.75em;
+    transform-origin: center;
+    animation: rotate 2s linear infinite;
+    margin: 0 auto;
+
+circle {
+  fill: none;
+  stroke: #3f50b5;
+  stroke-width: 2;
+  stroke-dasharray: 1, 200;
+  stroke-dashoffset: 0;
+  stroke-linecap: round;
+  animation: dash 1.5s ease-in-out infinite;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes dash {
+  0% {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 90, 200;
+    stroke-dashoffset: -35px;
+  }
+  100% {
+    stroke-dashoffset: -125px;
+  }
+}
+`
+
+export const Loading = styled.div`
+    text-align: center;
+    margin-top: 50px;
 `

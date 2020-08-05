@@ -24,7 +24,6 @@ function Header () {
             return(
             <ButtonContainer>
                 <HeaderButton onClick={goToLoginPage}>Login</HeaderButton>
-                <HeaderButton onClick={goToSignUpPage}>Cadastrar</HeaderButton>
             </ButtonContainer>
             )
         } else {

@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import Header from '../Header/Header'
 import { useHistory, useParams } from "react-router-dom";
 import axios from 'axios';
-import {StyledPaper, TituloUsuario, ContainerPost, PostFooter, TextContainer, LikesContainer, LikesButton, CommentContainer, CommentPaper, ContainerCommentText, CommentsTitle, CommentUserContainer, CommentLikesContainer} from './Style'
+import {StyledPaper, TituloUsuario, ContainerPost, PostFooter, ContainerButton, TextContainer, LikesContainer, LikesButton, CommentForm, CommentPaper, ContainerCommentText, CommentsTitle, CommentUserContainer, CommentLikesContainer, CommentSection, StyledSVG, Loading} from './Style'
 import { TextField, Button } from '@material-ui/core';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
@@ -137,9 +137,16 @@ function PostDetailPage () {
         }
     }
 
+    const goToFeedPage = () => {
+        history.push("/feed")
+    }
+
     return(
         <div>
             <Header />
+            <ContainerButton>
+                <Button variant="contained" color="primary" onClick={goToFeedPage}>Voltar</Button> 
+            </ContainerButton>            
             <StyledPaper>
                     <TituloUsuario>Usuário: {post.username}</TituloUsuario>
                     <ContainerPost>
@@ -155,8 +162,7 @@ function PostDetailPage () {
                         <TextContainer>{post.commentsCount} comentários</TextContainer>
                     </PostFooter>
             </StyledPaper>
-            <CommentContainer>
-                <form onSubmit={createComment}>
+                <CommentForm onSubmit={createComment}>
                 <TextField 
                     required
                     variant="outlined" 
@@ -166,10 +172,10 @@ function PostDetailPage () {
                     onChange={handleInputChange}
                 />
                 <Button variant="contained" color="primary" type="submit">Enviar</Button>
-                </form>
-            </CommentContainer>
+                </CommentForm>
             <CommentsTitle>Comentários</CommentsTitle>
-            {comments && comments.map((comment) => {
+            <CommentSection>
+            {comments.length === 0 ? <Loading><StyledSVG viewBox="25 25 50 50"><circle cx="50" cy="50" r="20"></circle></StyledSVG></Loading> : comments.map((comment) => {
                 return(
                     <CommentPaper key={comment.id}>
                         <CommentUserContainer>{comment.username}</CommentUserContainer>
@@ -182,6 +188,7 @@ function PostDetailPage () {
                     </CommentPaper>
                 )
             })}
+            </CommentSection>
         </div>
     )
 }
