@@ -8,30 +8,80 @@ import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
+import useForm from '../../Hooks/useForm'
 
 function PostDetailPage () {
     const history = useHistory();
     const params = useParams();
     const [post, setPost] = useState({})
     const [comments, setComments] = useState([])
+    const {form, onChange, resetForm} = useForm({text: ""})
+
+    const getPostDetail = () => {
+        const token = window.localStorage.getItem("token")
+        axios.get(`https://us-central1-labenu-apis.cloudfunctions.net/labEddit/posts/${params.postId}`, {headers: {Authorization: token}})
+        .then((response) => {
+            setPost(response.data.post)
+            setComments(response.data.post.comments)
+        })
+    }
 
     useEffect(() => {
         const token = window.localStorage.getItem("token")
         if(token === null){
             history.push("/login")
         }
-        const getPostDetail = () => {
-            const token = window.localStorage.getItem("token")
-            axios.get(`https://us-central1-labenu-apis.cloudfunctions.net/labEddit/posts/${params.postId}`, {headers: {Authorization: token}})
-            .then((response) => {
-                setPost(response.data.post)
-                setComments(response.data.post.comments)
-            })
-        }
         getPostDetail()
         
-    }, [history, params.postId])
-console.log(post)
+    },)
+
+    const votePostUp = (post) => {
+        const token = window.localStorage.getItem("token")  
+        if(post.userVoteDirection === 1){
+            const body = {
+                direction: 0
+            }
+            axios.put(`https://us-central1-labenu-apis.cloudfunctions.net/labEddit/posts/${params.postId}/vote`, body, {headers: {Authorization: token}})
+            .then(() => {
+                getPostDetail()
+            })
+        } else {
+            const body = {
+                direction: 1
+            }
+            axios.put(`https://us-central1-labenu-apis.cloudfunctions.net/labEddit/posts/${params.postId}/vote`, body, {headers: {Authorization: token}})
+            .then(() => {
+                getPostDetail()
+            })
+        }
+    }
+
+    const votePostDown = (post) => {
+        const token = window.localStorage.getItem("token")
+        if(post.userVoteDirection === -1){
+            const body = {
+                direction: 0
+            }
+            axios.put(`https://us-central1-labenu-apis.cloudfunctions.net/labEddit/posts/${params.postId}/vote`, body, {headers: {Authorization: token}})
+            .then(() => {
+                getPostDetail()
+            })
+        } else {
+            const body = {
+                direction: -1
+            }
+            axios.put(`https://us-central1-labenu-apis.cloudfunctions.net/labEddit/posts/${params.postId}/vote`, body, {headers: {Authorization: token}})
+            .then(() => {
+                getPostDetail()
+            })
+        }
+    }
+
+    const handleInputChange = event => {
+        const {name, value} = event.target
+        onChange(name, value)
+    }
+
     return(
         <div>
             <Header />
@@ -43,9 +93,9 @@ console.log(post)
                     </ContainerPost>
                     <PostFooter>
                         <LikesContainer>
-                            <LikesButton>{post.userVoteDirection === 1 ? <ArrowUpwardIcon color="primary"/> : <ArrowUpwardIcon />}</LikesButton>
+                            <LikesButton onClick={votePostUp}>{post.userVoteDirection === 1 ? <ArrowUpwardIcon color="primary"/> : <ArrowUpwardIcon />}</LikesButton>
                             <TextContainer>{post.votesCount}</TextContainer>
-                            <LikesButton>{post.userVoteDirection === -1 ? <ArrowDownwardIcon color="secondary"/> : <ArrowDownwardIcon />}</LikesButton>
+                            <LikesButton onClick={votePostDown}>{post.userVoteDirection === -1 ? <ArrowDownwardIcon color="secondary"/> : <ArrowDownwardIcon />}</LikesButton>
                         </LikesContainer>
                         <TextContainer>{post.commentsCount} comentários</TextContainer>
                     </PostFooter>
@@ -55,6 +105,8 @@ console.log(post)
                     variant="outlined" 
                     label="Comentário"
                     name="text"
+                    value={form.text}
+                    onChange={handleInputChange}
                 />
                 <Button variant="contained" color="primary" >Enviar</Button>
             </CommentContainer>
