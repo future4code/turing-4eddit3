@@ -137,7 +137,7 @@ function FeedPage () {
                             <TextContainer>{post.votesCount}</TextContainer>
                             <LikesButton onClick={() => votePostDown(post)}>{post.userVoteDirection === -1 ? <ArrowDownwardIcon color="secondary"/> : <ArrowDownwardIcon />}</LikesButton>
                         </LikesContainer>
-                        <TextContainer onClick={() => goToPostDetailPage(post.id)}>{post.commentsCount} comentários</TextContainer>
+                        <TextContainer onClick={() => goToPostDetailPage(post.id)}>{post.commentsCount} {post.commentsCount <= 1 ? 'comentário' : 'comentários'}</TextContainer>
                     </PostFooter>
                 </StyledPaper>
                 )
