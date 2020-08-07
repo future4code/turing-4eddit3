@@ -4,7 +4,6 @@ import {TextField, Button} from '@material-ui/core'
 
 export const StyledPaper = styled(Paper)`
     width: 490px;
-    height: 250px;
     margin: 10px auto;
     text-align: center;
     display: flex;
@@ -33,6 +32,7 @@ export const TituloUsuario = styled.h3`
 
 export const ContainerPost = styled.p`
     flex: 1;
+    padding: 20px 10px;
 `
 
 export const PostFooter = styled.div`
